@@ -1,13 +1,30 @@
 <?php
 include "shared/head.php";
-include "shared/header.php";
-include "shared/asside.php";
+// include "shared/header.php";
+// include "shared/asside.php";
 include "app/config.php";
 
+session_start();
+// Check if the session variable for the array exists
+if (isset($_SESSION['my_array'])) {
+  // Retrieve the array from the session variable
+  $my_array = $_SESSION['my_array'];
+} else {
+  // If the session variable doesn't exist, initialize an empty array
+  $my_array = array();
+}
 
+// Check if the "add" button is pressed
+if (isset($_POST['add'])) {
+  $name = $_POST['appeal'];
+  // Add the new name to the array
+  $my_array[] = $name;
 
+  // Store the updated array back into the session variable
+  $_SESSION['my_array'] = $my_array;
+}
+print_r($_SESSION['my_array'])
 
-// $my_array;  // Create an empty array
 // if (isset($_POST['add'])) {
 //   // Get the input value from the form
 //   $input_value = $_POST["appeal"];
@@ -115,13 +132,13 @@ include "app/config.php";
                   </div>
                 </div>
               </form>
-              <!-- <div class="alert alert alert-success text-center text-success">
+              <div class="alert alert alert-success text-center text-success">
                 <ul>
                   <?php foreach ($my_array as $item) : ?>
                     <li><?= $item ?></li>
                   <?php endforeach; ?>
                 </ul>
-              </div> -->
+              </div>
             </div>
 
             <div class="col-lg-6">
